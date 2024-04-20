@@ -1,5 +1,6 @@
 """ Utilities for interacting with the CUDA kernel environment """
 import os
+import re
 import subprocess
 import prompts
 
