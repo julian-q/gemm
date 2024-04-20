@@ -23,6 +23,14 @@ while True:
 pip install -r requirements.txt
 wandb login
 ```
+Then, we need to create an environment to build and benchmark CUDA kernels.
+```
+cd sgemm_envs/SGEMM_CUDA_00_00 # environment based on https://github.com/siboehm/SGEMM_CUDA
+mkdir build
+cd build
+cmake ..
+```
+Now, you're ready to go!
 
 ## Usage
 To run the agent loop:

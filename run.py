@@ -10,9 +10,6 @@ import prompts
 import env_utils as env
 import wandb
 
-# Directory where copies of SGEMM_CUDA repo (https://github.com/siboehm/SGEMM_CUDA) are stored
-ENVS_DIR = "/sailhome/quevedo/sgemm_envs"
-
 def get_code_blocks(resp):
     named_code_blocks = re.findall(r"\S*?([a-z_.]+)\S*?:\n```.*?\n(.+?)\n```", resp, re.DOTALL)
     return named_code_blocks
@@ -39,7 +36,7 @@ def write_kernels(instance_idx, args):
 
     base_dir = os.path.join("runs", args.run_name)
     os.makedirs(base_dir, exist_ok=True)
-    env_dir = os.path.join(ENVS_DIR, f"SGEMM_CUDA_{args.run_idx:02d}_{instance_idx:02d}")
+    env_dir = os.path.join(args.env_dir, f"SGEMM_CUDA_{args.run_idx:02d}_{instance_idx:02d}")
     src_dir = os.path.join(env_dir, "src")
     build_dir = os.path.join(env_dir, "build")
 
@@ -107,6 +104,7 @@ if __name__ == "__main__":
     parser.add_argument("--model", type=str, required=False, default="gpt-4-turbo-preview", help="model to use")
     parser.add_argument("--provider", type=str, required=False, default="OPENAI", help="model provider to use. should match environment variables XXX_BASE_URL, XXX_API_KEY")
     parser.add_argument("--use_docs", action="store_true", help="use docs for code completion")
+    parser.add_argument("--env_dir", type=str, required=False, default="./sgemm_envs", help="directory where gemm environments are stored")
     args = parser.parse_args()
     
     if args.n_instances == 1:
