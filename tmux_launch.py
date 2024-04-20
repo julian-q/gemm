@@ -4,7 +4,7 @@ def run_in_tmux(session_name, cmd):
     os.system(f"tmux new-session -d -s {session_name}")
     os.system(f"tmux send-keys -t {session_name} '{cmd}' C-m")
 
-base_cmd = lambda name: f"python e2e.py --n_instances 16 --n_steps 16 --run_name {name}"
+base_cmd = lambda name: f"python run.py --n_instances 16 --n_steps 16 --run_name {name}"
 
 # Commands
 commands = [
